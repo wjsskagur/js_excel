@@ -5,18 +5,19 @@
     <title>Title</title>
 </head>
 <body>
-    <section>
-        <div>
-            <button type="button" id="btn_excel">엑셀 다운로드</button>
-        </div>
-        <div>
-            <input type="file" id="upload_file" accept=".xls, .xlsx" >
-            <label for="upload_file" ></label>
-<!--            <button type="button" id="btn_save">저장</button>-->
-        </div>
-    </section>
+<section>
+    <div>
+        <button type="button" id="btn_excel">엑셀 다운로드</button>
+    </div>
+    <div>
+        <input type="file" id="upload_file" accept=".xls, .xlsx" >
+        <label for="upload_file" ></label>
+        <!--            <button type="button" id="btn_save">저장</button>-->
+    </div>
+</section>
 </body>
-<th:block th:include="~{common/excel_js :: excel}"></th:block>
+<script lang="javascript" src="/js/xlsx.js"></script>
+<script src="/js/excel_js.js"></script>
 <script>
     const list = [
         {"name":"홍길동","phone":"010-1234-5678"},
