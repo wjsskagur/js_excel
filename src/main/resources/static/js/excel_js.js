@@ -1,8 +1,9 @@
 function download_excel(data, headers, sheetName, filename) {
-    const wb = XLSX.utils.book_new();
-    const ws = XLSX.utils.json_to_sheet(data);
-    const wsCols = [];
+    const wb = XLSX.utils.book_new(); // make Workbook of Excel
+    const ws = XLSX.utils.json_to_sheet(data); // make Worksheet of Excel
+    const wsCols = []; // for column width
 
+    // ====================== set headers ===========================
     XLSX.utils.sheet_add_aoa(ws, [headers], {origin: "A1"});
 
     // ====================== set column width ======================
