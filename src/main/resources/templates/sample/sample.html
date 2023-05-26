@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <section>
+        <div>
+            <button type="button" id="btn_excel">엑셀 다운로드</button>
+        </div>
+        <div>
+            <input type="file" id="upload_file" accept=".xls, .xlsx" >
+            <label for="upload_file" ></label>
+<!--            <button type="button" id="btn_save">저장</button>-->
+        </div>
+    </section>
+</body>
+<th:block th:include="~{common/excel_js :: excel}"></th:block>
+<script>
+    const list = [
+        {"name":"홍길동","phone":"010-1234-5678"},
+        {"name":"홍길순","phone":"012-1234-1255"},
+        {"name":"홍길둔","phone":"010-5678-1234"}
+    ];
+
+    document.getElementById("btn_excel").addEventListener("click", () => {
+        const header = ["이름","핸드폰"];
+
+        // const response = fetch("/test/", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify(list),
+        // })
+        //
+        // const result = response.json();
+        // download_excel(result, header, "시트 이름을 입력하세요", "테스트파일.xlsx")
+
+        download_excel(list, header, "시트 이름을 입력하세요", "테스트파일.xlsx")
+    })
+
+    document.getElementById('upload_file').addEventListener('change', async () => {
+        const target = document.getElementById('upload_file').files[0];
+        await read_excel(target);
+    });
+
+</script>
+</html>
