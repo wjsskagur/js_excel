@@ -12,15 +12,15 @@ function download_excel(data, headers, sheetName, filename) {
             let maxWidth;
             if (typeof item[key] === "number") {
                 maxWidth = 10;
-            } else if (wsCols[index]) {
+            } else if (wsCols[index] && item[key]) {
                 maxWidth = wsCols[index].width < item[key].length ? (item[key].length+5) : wsCols[index].width;
             } else {
-                maxWidth = (item[key].length+5)
+                maxWidth = item[key] !== null ? (item[key].length+5) : 10;
             }
             wsCols[index] = {width: maxWidth}
         })
     })
-    
+
     ws['!cols'] = wsCols;
     // ==============================================================
 
@@ -42,12 +42,12 @@ function download_excel(data, headers, sheetName, filename) {
             },
         };
 
-        if (cell.c === 0) { // first column
-            ws[i].s.numFmt = "DD/MM/YYYY HH:MM"; // for dates
-            ws[i].z = "DD/MM/YYYY HH:MM";
-        } else {
-            ws[i].s.numFmt = "00.00"; // other numbers
-        }
+        // if (cell.c === 0) { // first column
+        //     ws[i].s.numFmt = "DD/MM/YYYY HH:MM"; // for dates
+        //     ws[i].z = "DD/MM/YYYY HH:MM";
+        // } else {
+        //     ws[i].s.numFmt = "00.00"; // other numbers
+        // }
 
         if (cell.r === 0 ) { // first row
             ws[i].s.fill = { // background color
@@ -74,4 +74,20 @@ function read_excel(file) {
         console.log(json);
     }
     reader.readAsBinaryString(file);
+}
+
+// Java LocalDate to Javascript Date
+function convert_date(date, type) {
+    let tmpDate;
+
+    try {
+        tmpDate = new Date(Date.parse(date));
+    } catch (e) {
+        return null;
+    }
+    if (type === "date") {
+        return tmpDate.getFullYear() + "-" + ((tmpDate.getMonth() + 1) < 10 ? ("0" + (tmpDate.getMonth() + 1)) : (tmpDate.getMonth() + 1) ) + "-" + tmpDate.getDate();
+    } else if(type === "datetime") {
+        return tmpDate.getFullYear() + "-" + ((tmpDate.getMonth() + 1) < 10 ? ("0" + (tmpDate.getMonth() + 1)) : (tmpDate.getMonth() + 1) ) + "-" + tmpDate.getDate() + " " + tmpDate.getHours() + ":" + tmpDate.getMinutes();
+    }
 }
