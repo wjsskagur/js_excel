@@ -76,6 +76,23 @@ function read_excel(file) {
     reader.readAsBinaryString(file);
 }
 
+
+function excel_to_json(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const data = e.target.result;
+            const workbook = XLSX.read(data, {type: 'binary'});
+            const sheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[sheetName];
+            const json = XLSX.utils.sheet_to_json(worksheet, {raw: true});
+            resolve(json);
+        }
+        reader.readAsBinaryString(file);
+    })
+
+}
+
 // Java LocalDate to Javascript Date
 function convert_date(date, type) {
     let tmpDate;
