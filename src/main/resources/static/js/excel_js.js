@@ -11,13 +11,16 @@ function download_excel(data, headers, sheetName, filename) {
         Object.keys(item).map((key, index) => {
             let maxWidth;
             if (typeof item[key] === "number") {
-                maxWidth = 10;
+                // maxWidth = 10;
+                maxWidth = item[key].toString().length + 5;
             } else if (wsCols[index] && item[key]) {
-                maxWidth = wsCols[index].width < item[key].length ? (item[key].length+5) : wsCols[index].width;
+                maxWidth = wsCols[index].width < (item[key].length + 5) ? (item[key].length+5) : wsCols[index].width;
             } else {
                 maxWidth = item[key] !== null ? (item[key].length+5) : 10;
             }
-            wsCols[index] = {width: maxWidth}
+            //wsCols[index] = {width : maxWidth}
+            wsCols[index] = {width: wsCols[index]?.width > maxWidth ? wsCols[index].width : maxWidth}
+
         })
     })
 
