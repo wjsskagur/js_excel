@@ -1,3 +1,33 @@
+/*
+* @Author : jaydon.jeon
+* @github : github.com/wjsskagur/js_excel
+* 
+* @Description :
+*  - download_excel(data, headers, sheetName, filename)
+*       @param data : json data ( list )
+*       @param headers : excel header
+*       @param sheetName : excel sheet name
+*       @param filename : excel file name
+*    @return : excel file
+* 
+* 
+* - read_excel(file)
+*      @param file : excel file
+* 
+* 
+* - excel_to_json(file)
+*       @param file : excel file
+*    @return : json data ( list )
+* 
+* 
+* - convert_date(date, type)
+*       @param date : java LocalDate
+*       @param type : date or datetime
+*    @return : Date
+* */
+
+
+
 function download_excel(data, headers, sheetName, filename) {
     const wb = XLSX.utils.book_new(); // make Workbook of Excel
     const ws = XLSX.utils.json_to_sheet(data); // make Worksheet of Excel
