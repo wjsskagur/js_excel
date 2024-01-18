@@ -89,6 +89,14 @@ function download_excel(data, headers, sheetName, filename) {
                 bgColor: { rgb: "b2b2b2" }
             };
         }
+
+        if (!isNaN(ws[i].v)) {
+            // console.log(ws[i])
+            ws[i].t = "n";
+            ws[i].v = Number(ws[i].v);
+            ws[i].s.numFmt = "0";
+        }// set type of cell to number
+        
     }
     // ==============================================================
 
